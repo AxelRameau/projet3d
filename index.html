@@ -12,12 +12,20 @@
     <a-asset-item id="vending" src="./img/vending-machine.glb"></a-asset-item>
     <a-asset-item id="can" src="./img/soda.glb"></a-asset-item>
 
+    <!-- fog="type: linear; color: #023e8a; near: 1; far: 7" background="color: #ECECEC" -->
 
-    <a-scene fog="type: linear; color: #023e8a; near: 1; far: 7" background="color: #ECECEC">
+    <a-scene >
         <a-sky color="#0077b6"></a-sky>
         <a-camera position="0 1 5"></a-camera>
 
-        <a-entity gltf-model="#can" scale="1 1 1 " position="1 5 0" ></a-entity>
+        <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.251 0.417 1.926" rotation="0 0 60"></a-entity>
+        <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.251 -0.048 1.497" rotation="0 0 100"></a-entity>
+        <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.768 0.939 2.292" rotation="0 0 140"
+        ></a-entity>
+        <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.998 0.889 2.925" rotation="0 80 20"
+        ></a-entity>
+        <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.950 1.638 3.483" rotation="50 -100 -40"
+        ></a-entity>
 
         <a-entity gltf-model="#floor" scale="2 1 2" position="0 -.8 0" rotation="0 55 0"></a-entity>
 

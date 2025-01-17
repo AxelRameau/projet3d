@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page A-frame</title>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
 </head>
 
 <body>
@@ -14,65 +16,74 @@
 
     <!-- fog="type: linear; color: #023e8a; near: 1; far: 7" background="color: #ECECEC" -->
 
-    <a-scene fog="type: linear; color: #023e8a; near: 1; far: 7" background="color: #ECECEC" >
+    <a-scene fog="type: linear; color: #023e8a; near: 1; far: 7" background="color: #ECECEC">
         <a-sky color="#0077b6"></a-sky>
-        <a-entity position="-1 -1 3.5">
-            <a-camera position="0 0 0"></a-camera>
-        </a-entity>
 
-        <a-entity position="-2 -1 -2 " rotation="0 20 0"> 
 
-        <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.251 0.417 1.926" rotation="0 0 60"></a-entity>
-        <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.251 -0.048 1.497" rotation="0 0 100"></a-entity>
-        <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.768 0.939 2.292" rotation="0 0 140"
-        ></a-entity>
-        <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.998 0.889 2.925" rotation="0 80 20"
-        ></a-entity>
-        <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.950 1.638 3.483" rotation="50 -100 -40"
-        ></a-entity>
 
-        <a-entity gltf-model="#floor" scale="2 1 2" position="0 -.8 0" rotation="0 55 0"></a-entity>
+            <!-- Canettes -->
+            <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.251 0.417 1.926" rotation="0 0 60"></a-entity>
+            <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.251 -0.048 1.497"
+                rotation="0 0 100"></a-entity>
+            <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.768 0.939 2.292"
+                rotation="0 0 140"></a-entity>
+            <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.998 0.889 2.925"
+                rotation="0 80 20"></a-entity>
+            <a-entity gltf-model="#can" scale=".25 .25 .25 " position="-0.950 1.638 3.483"
+                rotation="50 -100 -40"></a-entity>
 
-        <a-entity gltf-model="#vending" rotation="0 145 0" position="0 1.2 1" scale="1.2 1.2 1.2">
-            <a-entity geometry="primitive: box" material="emissive: #48cae4; emissiveIntensity:9;"position="-.46 .58 -.15" scale=".2 .1 .1">
+            <!-- Sol -->
+            <a-entity gltf-model="#floor" scale="2 1 2" position="0 -.8 0" rotation="0 55 0"></a-entity>
+
+            <!-- Distrib -->
+            <a-entity gltf-model="#vending" rotation="0 145 0" position="0 1.2 1" scale="1.2 1.2 1.2">
+                <a-entity geometry="primitive: box" material="emissive: #48cae4; emissiveIntensity:9;"
+                    position="-.46 .58 -.15" scale=".2 .1 .1">
+                </a-entity>
+                <a-entity geometry="primitive: box" material="emissive: blue; emissiveIntensity:9;"
+                    position="-.46 .18 -.15" scale=".2 .1 .1"
+                    class="clickable"
+                    event-set__click="_event: click; visible: false"
+                    event-set__enter="_event: mouseenter; color: #48cae4;">
+                </a-entity>
+                <a-entity geometry="primitive: box" material="emissive: #48cae4; emissiveIntensity:9;"
+                    position=".1 -.94 -.12" scale=".33 .15q .1">
+                </a-entity>
+                <a-entity geometry="primitive: box" material="emissive: #48cae4; emissiveIntensity:9;"
+                    position="-.62q -1.1 .3" scale="0.1 .4 .4">
+                </a-entity>
+                <a-entity geometry="primitive: box" material="emissive: #48cae4; emissiveIntensity:9;"
+                    position=".43 0.22 -.12" scale=".05 .98 .1">
+                </a-entity>
             </a-entity>
-            <a-entity geometry="primitive: box" material="emissive: #48cae4; emissiveIntensity:9;"position="-.46 .18 -.15" scale=".2 .1 .1">
+
+            <!-- Lights -->
+            <a-entity light="type: directional; color: #14213d; intensity: 0.5" position="0 10 -50"
+                target="#vending"></a-entity>
+            <a-entity light="type: ambient; color: #023e8a" position="0 10 0"></a-entity>
+
+            <!-- CAMERA & manettes -->
+            <a-entity movement-controls="speed:0.1; fly:true;"  id="rig" position="0 1 5" rotation="0 -15 0">
+                <a-camera look-controls="pointerLockEnabled: true" position="0 1.6 0">
+                    <a-cursor></a-cursor>
+                </a-camera>
+                <a-entity
+                laser-controls="hand: left"
+                raycaster="objects: .clickable; far: 20; showLine: true; raycaster: red;"
+                position="-0.5 1.5 -0.5"
+              ></a-entity>
+              <a-entity
+                laser-controls="hand: right"
+                raycaster="objects: .clickable; far: 20; showLine: true; raycaster: red;"
+                position="0.5 1.5 -0.5"
+              ></a-entity>
             </a-entity>
-            <a-entity geometry="primitive: box" material="emissive: #48cae4; emissiveIntensity:9;"position=".1 -.94 -.12" scale=".33 .15q .1">
-            </a-entity>
-            <a-entity geometry="primitive: box" material="emissive: #48cae4; emissiveIntensity:9;" position="-.62q -1.1 .3" scale="0.1 .4 .4">
-            </a-entity>
-            <a-entity geometry="primitive: box" material="emissive: #48cae4; emissiveIntensity:9;"position=".43 0.22 -.12" scale=".05 .98 .1">
-            </a-entity>
-        </a-entity>
+            
 
 
-        <a-entity light="type: directional; color: #14213d; intensity: 0.5" position="0 10 -50"
-            target="#vending"></a-entity>
-        <a-entity light="type: ambient; color: #023e8a" position="0 10 0"></a-entity>
-
-    </a-entity>
     </a-scene>
 </body>
 
 </html>
 
 
-
-
-
-
-<!-- <a-asset-item  id="rocket" src="/assets/Space Shuttle.glb"></a-asset-item> -->
-<!-- <a-entity Animation="property: rotation; to: 0 -360 0; loop:true; easing:linear; dur:3000;" material="src: #mars" geometry="primitive:sphere; radius 1" position="5 0 0" color="yellow"></a-entity> -->
-
-<!--     <a-sphere normal-map="#normal_map" animation="property: rotation; to: 0 360 0; loop: true; easing:linear; dur: 5000" position="0 1 -4" material="src: #moon"  radius="4" segments-height="53" segments-width="53"></a-sphere>
-      <a-sky material="src: #sky" color="grey"></a-sky>
-      <a-camera position="0 1 5"></a-camera>
-      <a-entity light="type: directional;" color="blue" target="#moon" position="10 10 5"></a-entity>
-      <a-light color="black" position="-5 0 -2"></a-light>
-      <a-light intensity="2" type="point" color="grey" position="5 0 2"></a-light>
-    </a-scene> -->
-
-
-
-<!--  <a-scene  fog="type: linear; color: #0077b6; near: 1; far: 12" background="color: #ECECEC"> -->

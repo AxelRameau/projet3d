@@ -36,7 +36,8 @@
             <a-entity gltf-model="#floor" scale="2 1 2" position="0 -.8 0" rotation="0 55 0"></a-entity>
 
             <!-- Distrib -->
-            <a-entity gltf-model="#vending" rotation="0 145 0" position="0 1.2 1" scale="1.2 1.2 1.2">
+            <a-entity gltf-model="#vending" rotation="0 145 0" position="0 1.2 1" scale="1.2 1.2 1.2" class="clickable" cursor-listener>
+                <a-sound id="distrib" src="./sound/distrib.mp3"></a-sound>
                 <a-entity geometry="primitive: box" material="emissive: #48cae4; emissiveIntensity:9;"
                     position="-.46 .58 -.15" scale=".2 .1 .1">
                 </a-entity>
@@ -80,10 +81,22 @@
             </a-entity>
             
             <!-- Sound -->
-            <a-sound src="./sound/merrick.mp3" autoplay="true"></a-sound>
+            <a-sound src="./sound/merrick.mp3" loop="true" autoplay="true"></a-sound>
     </a-scene>
 </body>
 
 </html>
+<script>
+    AFRAME.registerComponent("cursor-listener", {
+      init: function () {
+        const sound= document.querySelector("#distrib");
+       
+        this.el.addEventListener("click", function (evt) {
+          console.log("play sound");
+          sound.play();
+        });
+      },
+    });
+  </script>
 
-
+<!--  Faire au survol luminescense sur des objets et quand on clique sur le distrib GLING GLING  -->
